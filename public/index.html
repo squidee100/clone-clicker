@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" id="html">
+    <head>
+        <meta charset="utf-8">
+        <title>Money Clicker</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <a>You have <a id=moneyCount class="counter">null</a>!</a><br>
+        <a>You have <a id=burgerCount class="counter">null</a> burgers!</a><br>
+        <a>You have <a id=wrapCount class="counter">null</a> burgers!</a>
+        <br><br>
+        <div id="makemoneyBtn" class="button">
+            <a>Print money! (<a class="price"><i>FREE</i></a>)</a>
+        </div>
+        <br>
+        <div id="buyBurgerBtn" class="button">
+            <a>Buy <b>burger</b>! (<a class="price">¤10</a>)</a>
+            <a class="costError">Not enough money!</a>
+        </div>
+        <br>
+        <div id="buyWrapBtn" class="button">
+            <a>Buy <b>wrap</b>! (<a class="price">¤15</a>)</a>
+            <a class="costError">Not enough money!</a>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
