@@ -1,12 +1,17 @@
-const cookieVersion = 1;
+const cookieVersion = 5.1;
 const currentCookieVersion = getCookie("cookieVersion");
 
 var money;
 var burgers;
 var wraps;
+var sandwichs;
+
+var autoPrinter = true;
+var autoPrinters = 2;
+
 
 if (currentCookieVersion != cookieVersion) {
-    console.log(`%cCookies are out of date!\nClear cookies to update! (v${currentCookieVersion} > v${cookieVersion})`, 'color: #e03838');
+    console.log(`%cCookies are out of date! (v${currentCookieVersion} > v${cookieVersion})`, 'color: #e03838');
 }
 else {
     console.log(`%cCookies are up to date! (v${currentCookieVersion})`, 'color: #3ee038')
@@ -19,26 +24,30 @@ if (currentCookieVersion == null) {
 
 function VerifyCookie(cname, cvalue) {
     if (getCookie(cname) == null) {
-        console.log(`"${cname}" does not exists!\nInitialising...`)
+        console.log(`Cookie "${cname}" does not exists!\nInitialising...`)
         
         window[cname] = cvalue;
         // Default cookies
         setCookie(cname, cvalue);
-        setCookie(cname, cvalue);
     }
     else {
-        console.log(`"${cname}" exists!`)
+        console.log(`Cookie "${cname}" exists!`)
         window[cname] = parseInt(getCookie(cname));
     }
-
-    console.log(`${cname}: ${window[cname]}`);
 }
 
-VerifyCookie("money", 0)
-VerifyCookie("burgers", 0)
-VerifyCookie("wraps", 0)
+function InitCookies() {
+    VerifyCookie("money", 0)
+    VerifyCookie("burgers", 0)
+    VerifyCookie("wraps", 0)
+    VerifyCookie("sandwichs", 0)
+}
+InitCookies();
 
 /////////////////////////////////
+
+const updateButtonRef = document.querySelector("#updateButton");
+const resetButtonRef = document.querySelector("#resetButton");
 
 const moneyCountRef = document.querySelector("#moneyCount");
 const makemoneyBtnRef = document.querySelector("#makemoneyBtn");
@@ -48,6 +57,9 @@ const buyBurgerBtnRef = document.querySelector("#buyBurgerBtn");
 
 const wrapCountRef = document.querySelector("#wrapCount");
 const buyWrapBtnRef = document.querySelector("#buyWrapBtn");
+
+const sandwichCountRef = document.querySelector("#sandwichCount");
+const buySandwichBtnRef = document.querySelector("#buySandwichBtn");
 
 makemoneyBtnRef.addEventListener("click", function() {
     setCookie("money", ++money); // Add burger
@@ -60,6 +72,10 @@ buyBurgerBtnRef.addEventListener("click", function() {
 
 buyWrapBtnRef.addEventListener("click", function() {
     buySomething("wraps", wraps, buyWrapBtnRef, wrapCountRef, 15);
+});
+
+buySandwichBtnRef.addEventListener("click", function() {
+    buySomething("sandwichs", sandwichs, buySandwichBtnRef, sandwichCountRef, 25);
 });
 
 function buySomething(itemname, item, itemRef, countRef, cost) {
@@ -88,14 +104,48 @@ function setInnerHTML(element, value) {
     }
 }
 
+function auto() {
+    setCookie("money", ++money);
+    setInnerHTML(moneyCountRef, money);
+    setTimeout("auto()", 1000 / autoPrinters);
+}
+auto();
+
+function ClearCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
+
+resetButtonRef.addEventListener("click", function() {
+    if (confirm('Reset all data?')) {
+        money = 0;
+        burgers = 0;
+        wraps = 0;
+        sandwichs = 0;
+
+        ClearCookies();
+        location.reload();
+    }
+});
+
+if (typeof(w) == "undefined") {
+    w = new Worker("autoworkers.js");
+}
+
 //
 // Initialise text
 //
 setInnerHTML(moneyCountRef, money);
 setInnerHTML(burgerCountRef, burgers);
 setInnerHTML(wrapCountRef, wraps);
-
-
+setInnerHTML(sandwichCountRef, sandwichs);
 
 
 function setCookie(cname, cvalue) {

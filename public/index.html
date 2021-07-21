@@ -4,27 +4,46 @@
         <meta charset="utf-8">
         <title>Money Clicker</title>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css?3">
     </head>
     <body>
-        <a>You have <a id=moneyCount class="counter">null</a>!</a><br>
-        <a>You have <a id=burgerCount class="counter">null</a> burgers!</a><br>
-        <a>You have <a id=wrapCount class="counter">null</a> burgers!</a>
-        <br><br>
-        <div id="makemoneyBtn" class="button">
-            <a>Print money! (<a class="price"><i>FREE</i></a>)</a>
+        <div id="invDiv">
+            <h3>Bag</h3>
+            <a>You have <b id=burgerCount class="counter">null</b> burgers!</a><br>
+            <a>You have <b id=wrapCount class="counter">null</b> wraps!</a><br>
+            <a>You have <b id=sandwichCount class="counter">null</b> sandwichs!</a>
+            <br><br>
+            <h3>Machines</h3>
+            <a>You have <b class="counter">2</b> auto printers! (¤1/s)</a><br>
         </div>
-        <br>
-        <div id="buyBurgerBtn" class="button">
-            <a>Buy <b>burger</b>! (<a class="price">¤10</a>)</a>
-            <a class="costError">Not enough money!</a>
+        <div id="moneyDiv">
+            <a>You have <b id=moneyCount class="counter">null</b>!</a><br>
+            <div id="makemoneyBtn" class="button">
+                <a>Print money! (<b class="price"><i>FREE</i></b>)</a>
+            </div>
         </div>
-        <br>
-        <div id="buyWrapBtn" class="button">
-            <a>Buy <b>wrap</b>! (<a class="price">¤15</a>)</a>
-            <a class="costError">Not enough money!</a>
+        <div id="itemsDiv">
+            <a>Shop</a>
+            <div id="buyBurgerBtn" class="button">
+                <a>Buy burger! (<b class="price">¤10</b>)</a>
+                <a class="costError">Not enough money!</a>
+            </div>
+            <br>
+            <div id="buyWrapBtn" class="button">
+                <a>Buy wrap! (<b class="price">¤15</b>)</a>
+                <a class="costError">Not enough money!</a>
+            </div>
+            <br>
+            <div id="buySandwichBtn" class="button">
+                <a>Buy sandwich! (<b class="price">¤25</b>)</a>
+                <a class="costError">Not enough money!</a>
+            </div>
         </div>
 
-        <script src="script.js"></script>
+        <a id="resetButton" class="smallButton">reset data</a>
+        <a id="result"></a>
+
+        <script src="script.js?3"></script>
+        <script src="autoworkers.js?3"></script>
     </body>
 </html>
